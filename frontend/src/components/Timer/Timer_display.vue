@@ -10,6 +10,7 @@ defineProps<{
 const emit = defineEmits <{
   reset: [];
   addTime: [];
+  start: [];
 }>();
 // The empty array means that this event doesn't carry any argument,
 // Basically this function is just here to send the emit
@@ -20,6 +21,7 @@ const emit = defineEmits <{
   <h2>Remaining seconds : {{ timeLeft }}</h2>
   <button @click="emit('reset')">Reset</button>
   <button @click="emit('addTime')">Double</button>
+  <button @click="emit('start')">Start</button>
   <!--
   emit('reset') : trigger the "@reset="resetTimer" passed in this component from the parent
   -->

@@ -1,5 +1,5 @@
 // The export keyword allow us to export variable and function, just like JavaScript
-export const defaultTime: number = 10;
+export const defaultTime: number = 1500;
 
 // double time function
 export function doubleTime(seconds: number) {

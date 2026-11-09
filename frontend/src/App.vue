@@ -1,52 +1,40 @@
 <script setup lang="ts">
-// Component import war zone
+
+// Component imports
 import Timer_display from './components/Timer/Timer_display.vue';
+import Timer_controls from './components/Timer/Timer_controls.vue';
 
-// Vue stuff import
-import { ref, computed } from 'vue'; // Classic vue stuff
-import { defaultTime, formatTime, doubleTime } from './types/timer.ts'; // Import variable and function from the timer.ts file
+// Utility imports
+import { formatTime } from './types/timer.ts';
 
-// TEST AAAAAAAAAAAA
-// Classic variable declaration in Ts (waw)
-const timeLeft = ref<number>(defaultTime)
-const tic = ref(1000)
+// Composable imports
+import { useTimer } from './composables/userTimer.ts';
 
-
-// Adding time function
-function addTime() {
-  console.log('triggered')
-  timeLeft.value = doubleTime(timeLeft.value)
-} // In the end I forgot to return the result and the .value (help)
-
-
-// Function to reset the timer
-function resetTimer() {
-  timeLeft.value = defaultTime
-}
-
-// Start function
-function start() {
-  console.log('triggered start')
-  setInterval(function second() {
-    if(timeLeft.value < 1) {
-      return
-    } else {
-      timeLeft.value--
-    }
-    return
-  }, 1000)
-}
+// Initialize timer
+const {
+    timeLeft,
+    playStatus,
+    addTime,
+    resetTimer,
+    start,
+    pause
+} = useTimer();
 
 </script>
 
 <template>
+  <h2>status : {{ playStatus }}</h2>
 <h1>{{ formatTime(timeLeft) }}</h1>
 
 <Timer_display
 :time-left="timeLeft"
+/>
+
+<Timer_controls
 @reset="resetTimer"
 @addTime="addTime"
 @start="start"
+@pause="pause"
 />
 <!--
 :time-left="timeLeft" :  Pass the variable "timeLeft" to the component

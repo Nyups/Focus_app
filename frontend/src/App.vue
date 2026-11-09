@@ -10,10 +10,11 @@ import { formatTime } from './types/timer.ts';
 // Composable imports
 import { useTimer } from './composables/userTimer.ts';
 
-// Initialize timer
+// Grab the said variables and functions from the composable (userTimer.ts) (aaaaw)
 const {
     timeLeft,
     playStatus,
+    playInfo,
     addTime,
     resetTimer,
     start,
@@ -23,13 +24,12 @@ const {
 </script>
 
 <template>
-  <h2>status : {{ playStatus }}</h2>
-<h1>{{ formatTime(timeLeft) }}</h1>
-
 <Timer_display
 :time-left="timeLeft"
+:format-time="formatTime"
+:play-info="playInfo"
 />
-
+<!--why is it red :C-->
 <Timer_controls
 @reset="resetTimer"
 @addTime="addTime"

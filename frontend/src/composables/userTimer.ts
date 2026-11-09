@@ -1,32 +1,36 @@
-
+// I have to remember it work despite this file being a TS file.
 import { ref } from 'vue';
+// Function from timer.ts
 import { defaultTime, doubleTime } from '../types/timer';
 
 export function useTimer() {
 
-    // Reactive variables
+
     const timeLeft = ref<number>(defaultTime);
     const playStatus = ref(false);
+    const playInfo = ref<string>('Waiting...');
 
     // Interval management
     let timerInterval: ReturnType<typeof setInterval> | null = null;
 
-    // Add time
+
     function addTime() {
         timeLeft.value = doubleTime(timeLeft.value);
     }
 
-    // Reset timer
+
     function resetTimer() {
         pause();
         timeLeft.value = defaultTime;
+        playInfo.value = 'Waiting...';
     }
 
-    // Start timer
+
     function start() {
         if (timerInterval !== null || timeLeft.value <= 0) return;
 
         playStatus.value = true;
+        playInfo.value = 'Playing...';
 
         timerInterval = setInterval(() => {
             if (timeLeft.value > 0) {
@@ -37,9 +41,10 @@ export function useTimer() {
         }, 1000);
     }
 
-    // Pause timer
+
     function pause() {
         playStatus.value = false;
+        playInfo.value = 'Paused';
 
         if (timerInterval !== null) {
             clearInterval(timerInterval);
@@ -51,6 +56,7 @@ export function useTimer() {
     return {
         timeLeft,
         playStatus,
+        playInfo,
         addTime,
         resetTimer,
         start,

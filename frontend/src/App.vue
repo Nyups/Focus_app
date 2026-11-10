@@ -3,6 +3,8 @@
 // Component imports
 import Timer_display from './components/Timer/Timer_display.vue';
 import Timer_controls from './components/Timer/Timer_controls.vue';
+import Session_counter from './components/Timer/Session_counter.vue';
+import session_preset from './components/Settings/session_preset.vue';
 
 // Utility imports
 import { formatTime } from './types/timer.ts';
@@ -13,8 +15,8 @@ import { useTimer } from './composables/userTimer.ts';
 // Grab the said variables and functions from the composable (userTimer.ts) (aaaaw)
 const {
     timeLeft,
-    playStatus,
     playInfo,
+    sessionCount,
     addTime,
     resetTimer,
     start,
@@ -36,6 +38,11 @@ const {
 @start="start"
 @pause="pause"
 />
+
+<session_counter
+:session-count="sessionCount"/>
+
+<session_preset/>
 <!--
 :time-left="timeLeft" :  Pass the variable "timeLeft" to the component
 @rest="resetTimer" : Pass the function "resetTimer" to the component

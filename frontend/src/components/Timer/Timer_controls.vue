@@ -12,15 +12,41 @@ const emit = defineEmits <{
   pause: [];
 }>();
 // The empty array means that this event doesn't carry any argument,
-// Basically this function is just here to send the emit
+// Basically this function is just here to send the emit tada
 </script>
 
 <template>
-  <h2>Timer control</h2>
-  <button @click="emit('reset')">Reset</button>
-  <button @click="emit('addTime')">Double</button>
-  <button @click="emit('start')">Start</button>
-  <button @click="emit('pause')">Pause</button>
+  <section class="controls">
+  <button class="control" @click="emit('reset')">Reset</button>
+  <button class="control" @click="emit('addTime')">Double</button>
+  <button class="control" @click="emit('start')">Start</button>
+  <button class="control" @click="emit('pause')">Pause</button>
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background-color: rgb(62, 67, 96);
+  border-radius: 10px;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 1);
+}
+
+.control {
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: rgb(44, 48, 68);
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+  border: none;
+}
+
+.control:hover {
+  background-color: rgb(255, 213, 220);
+}
+</style>

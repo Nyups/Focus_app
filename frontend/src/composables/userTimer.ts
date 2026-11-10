@@ -8,7 +8,8 @@ export function useTimer() {
 
     const timeLeft = ref<number>(defaultTime);
     const playStatus = ref(false);
-    const playInfo = ref<string>('Waiting...');
+    const playInfo = ref<string>('Waiting for you!');
+    const sessionCount = ref<number>(0);
 
     // Interval management
     let timerInterval: ReturnType<typeof setInterval> | null = null;
@@ -22,7 +23,7 @@ export function useTimer() {
     function resetTimer() {
         pause();
         timeLeft.value = defaultTime;
-        playInfo.value = 'Waiting...';
+        playInfo.value = 'Waiting for you!';
     }
 
 
@@ -37,6 +38,7 @@ export function useTimer() {
                 timeLeft.value--;
             } else {
                 pause();
+                sessionCount.value++;
             }
         }, 1000);
     }
@@ -57,6 +59,7 @@ export function useTimer() {
         timeLeft,
         playStatus,
         playInfo,
+        sessionCount,
         addTime,
         resetTimer,
         start,

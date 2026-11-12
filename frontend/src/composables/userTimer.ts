@@ -1,20 +1,21 @@
 // I have to remember it work despite this file being a TS file.
 import { ref } from 'vue';
 // Function from timer.ts
-import { defaultTime, doubleTime } from '../types/timer';
+import { defaultTime, doubleTime, breakTime } from '../types/timer';
 
 export function useTimer() {
 
 
     const timeLeft = ref<number>(defaultTime);
     const playStatus = ref(false);
+    const breakStatus = ref(false);
     const playInfo = ref<string>('Waiting for you!');
     const sessionCount = ref<number>(0);
 
     // Interval management
     let timerInterval: ReturnType<typeof setInterval> | null = null;
 
-
+// Functionality area //////////////////////////////////////////////////
     function addTime() {
         timeLeft.value = doubleTime(timeLeft.value);
     }
@@ -26,7 +27,7 @@ export function useTimer() {
         playInfo.value = 'Waiting for you!';
     }
 
-
+// I'll add sound later
     function start() {
         if (timerInterval !== null || timeLeft.value <= 0) return;
 
@@ -39,6 +40,15 @@ export function useTimer() {
             } else {
                 pause();
                 sessionCount.value++;
+                if (!breakStatus.value) {
+                    breakStatus.value = true;
+                    timeLeft.value = breakTime.value;
+                    playInfo.value = 'Break time!';
+                } else {
+                    breakStatus.value = false;
+                    timeLeft.value = defaultTime;
+                    playInfo.value = 'Waiting for you!';
+                }
             }
         }, 1000);
     }
@@ -54,7 +64,32 @@ export function useTimer() {
         }
     }
 
-    // Export everything we want to use
+// Preset area ///////////////////////////////////////////////////////
+// to do : 2 preset functions and one user input function
+// -one short (25 min focus 5 min break)
+// -the other long (50 min focus 10 min break)
+// -user input function (input focus time and break time)
+
+function shortPreset() {
+    resetTimer();
+    timeLeft.value = 25 * 60; // 25 minutes in seconds
+    breakTime.value = 5 * 60; // 5 minutes in seconds
+}
+
+function longPreset() {
+    resetTimer();
+    timeLeft.value = 50 * 60; // 50 minutes in seconds
+    breakTime.value = 10 * 60; // 10 minutes in seconds
+}
+
+function userInputPreset(focusTime: number, breakTimeInput: number) {
+    resetTimer();
+    timeLeft.value = focusTime * 60; // Convert to seconds
+    breakTime.value = breakTimeInput * 60; // Convert to seconds
+}
+
+
+    // Export area /////////////////////////////////////////////////////
     return {
         timeLeft,
         playStatus,
@@ -63,6 +98,10 @@ export function useTimer() {
         addTime,
         resetTimer,
         start,
-        pause
+        pause,
+        shortPreset,
+        longPreset,
+        userInputPreset,
+        breakTime
     };
 }

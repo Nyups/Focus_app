@@ -5,7 +5,7 @@ import Timer_display from './components/Timer/Timer_display.vue';
 import Timer_controls from './components/Timer/Timer_controls.vue';
 import Session_counter from './components/Timer/Session_counter.vue';
 import session_preset from './components/Settings/session_preset.vue';
-
+import { ref } from 'vue';
 // Utility imports
 import { formatTime } from './types/timer.ts';
 
@@ -20,12 +20,24 @@ const {
     addTime,
     resetTimer,
     start,
-    pause
+    pause,
+    shortPreset,
+    longPreset,
+    userInputPreset
 } = useTimer();
 
-</script>
+const presetWindow = ref(false);
 
+function togglePresetWindow() {
+  presetWindow.value = !presetWindow.value;
+}
+
+</script>
 <template>
+  <div class="heading">
+    <h1>Pomodoro Timer</h1>
+    <button @click="togglePresetWindow">Preset</button>
+  </div>
 <Timer_display
 :time-left="timeLeft"
 :format-time="formatTime"
@@ -33,6 +45,7 @@ const {
 />
 <!--why is it red :C-->
 <Timer_controls
+:time-left="timeLeft"
 @reset="resetTimer"
 @addTime="addTime"
 @start="start"
@@ -42,7 +55,11 @@ const {
 <session_counter
 :session-count="sessionCount"/>
 
-<session_preset/>
+<session_preset
+@short-preset="shortPreset"
+@long-preset="longPreset"
+@user-input-preset="userInputPreset"
+/>
 <!--
 :time-left="timeLeft" :  Pass the variable "timeLeft" to the component
 @rest="resetTimer" : Pass the function "resetTimer" to the component

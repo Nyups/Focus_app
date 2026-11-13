@@ -2,7 +2,6 @@
 defineProps<{
   timeLeft: number; // expect a number
 }>();
-// We get the variable we passed in the parent via "defineProps"
 
 
 const emit = defineEmits <{
@@ -35,7 +34,7 @@ const emit = defineEmits <{
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 1);
   width: 90px;
   height: 329px;
-  
+
 }
 
 .control { /* Button */

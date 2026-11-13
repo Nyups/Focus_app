@@ -59,6 +59,7 @@ function togglePresetWindow() {
 
 <session_counter
 :session-count="sessionCount"/>
+<img src="./asset/texture/scuba.gif" alt="elgato"/>
 
 <transition name="slide">
 <session_preset
@@ -70,10 +71,6 @@ v-if="presetWindow"
 />
 </transition>
 
-<!--
-:time-left="timeLeft" :  Pass the variable "timeLeft" to the component
-@rest="resetTimer" : Pass the function "resetTimer" to the component
--->
 </template>
 
 <style scoped>

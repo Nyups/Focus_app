@@ -6,6 +6,8 @@ export function useTimer() {
 
 
     const timeLeft = ref<number>(defaultTime);
+    const focusDuration = ref<number>(defaultTime);
+    const currentDuration = ref<number>(defaultTime);
     const playStatus = ref(false);
     const breakStatus = ref(false);
     const playInfo = ref<string>('Waiting for you!');
@@ -16,13 +18,16 @@ export function useTimer() {
 
 // Functionality area //////////////////////////////////////////////////
     function addTime() {
+        currentDuration.value += timeLeft.value;
         timeLeft.value = doubleTime(timeLeft.value);
     }
 
 
     function resetTimer() {
         pause();
-        timeLeft.value = defaultTime;
+        breakStatus.value = false;
+        timeLeft.value = focusDuration.value;
+        currentDuration.value = focusDuration.value;
         playInfo.value = 'Waiting for you!';
     }
 
@@ -42,10 +47,12 @@ export function useTimer() {
                 if (!breakStatus.value) {
                     breakStatus.value = true;
                     timeLeft.value = breakTime.value;
+                    currentDuration.value = breakTime.value;
                     playInfo.value = 'Break time!';
                 } else {
                     breakStatus.value = false;
-                    timeLeft.value = defaultTime;
+                    timeLeft.value = focusDuration.value;
+                    currentDuration.value = focusDuration.value;
                     playInfo.value = 'Waiting for you!';
                 }
             }
@@ -67,19 +74,25 @@ export function useTimer() {
 
 function shortPreset() {
     resetTimer();
-    timeLeft.value = 25 * 60;
+    focusDuration.value = 25 * 60;
+    timeLeft.value = focusDuration.value;
+    currentDuration.value = focusDuration.value;
     breakTime.value = 5 * 60;
 }
 
 function longPreset() {
     resetTimer();
-    timeLeft.value = 50 * 60;
+    focusDuration.value = 50 * 60;
+    timeLeft.value = focusDuration.value;
+    currentDuration.value = focusDuration.value;
     breakTime.value = 10 * 60;
 }
 
 function userInputPreset(focusTime: number, breakTimeInput: number) {
     resetTimer();
-    timeLeft.value = focusTime * 60; // Convert to seconds
+    focusDuration.value = focusTime * 60; // Convert to seconds
+    timeLeft.value = focusDuration.value;
+    currentDuration.value = focusDuration.value;
     breakTime.value = breakTimeInput * 60; // Convert to seconds
 }
 
@@ -87,6 +100,7 @@ function userInputPreset(focusTime: number, breakTimeInput: number) {
 // Export area /////////////////////////////////////////////////////
     return {
         timeLeft,
+        currentDuration,
         playStatus,
         playInfo,
         sessionCount,

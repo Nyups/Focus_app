@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { defaultTime } from '../../types/timer.ts';
 import { computed } from 'vue';
 
 const props = defineProps<{
   timeLeft: number;
+  duration: number;
   formatTime: (time: number) => string;
   playInfo: string;
 }>();
-// We get the variable we passed in the parent via "defineProps"
 
 
-const progress = computed(() =>
-  ((defaultTime - props.timeLeft) / defaultTime) * 100
-);
+const progress = computed(() => {
+  if (props.duration <= 0) return 0;
+
+  return Math.min(
+    100,
+    Math.max(0, ((props.duration - props.timeLeft) / props.duration) * 100)
+  );
+});
 
 </script>
 

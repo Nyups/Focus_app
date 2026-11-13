@@ -15,6 +15,7 @@ import { useTimer } from './composables/userTimer.ts';
 // Grab the said variables and functions from the composable (userTimer.ts) (aaaaw)
 const {
     timeLeft,
+    currentDuration,
     playInfo,
     sessionCount,
     addTime,
@@ -42,6 +43,7 @@ function togglePresetWindow() {
 <div class="timer-container">
 <Timer_display
 :time-left="timeLeft"
+:duration="currentDuration"
 :format-time="formatTime"
 :play-info="playInfo"
 />

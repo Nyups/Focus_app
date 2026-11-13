@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import { useTimer } from '../../composables/userTimer.ts';
+import { computed, ref } from 'vue';
 
 defineProps<{
   presetWindow: boolean;
 }>();
 
-const {
-    timeLeft,
-    breakTime
-} = useTimer();
+const focusTimeInput = ref(25);
+const breakTimeInput = ref(5);
+const validUserPreset = computed(() =>
+  Number.isFinite(focusTimeInput.value) &&
+  focusTimeInput.value > 0 &&
+  Number.isFinite(breakTimeInput.value) &&
+  breakTimeInput.value > 0
+);
 
 const emit = defineEmits<{
   'short-preset': [];
   'long-preset': [];
-  'user-input-preset': [focusTime: number, breakTime: number];
+  'user-input-preset': [focusTime: number, breakDuration: number];
 }>();
 
 
@@ -37,9 +41,14 @@ const emit = defineEmits<{
   <div class="user-input-preset">
     <h3>User Input Preset</h3>
     <p>Set your own focus and break times</p>
-    <input type="number" v-model.number="timeLeft" placeholder="Focus Time (minutes)" />
-    <input type="number" v-model.number="breakTime" placeholder="Break Time (minutes)" />
-    <button @click="emit('user-input-preset', timeLeft, breakTime)">Set User Input Preset</button>
+    <input type="number" min="1" v-model.number="focusTimeInput" placeholder="Focus Time (minutes)" />
+    <input type="number" min="1" v-model.number="breakTimeInput" placeholder="Break Time (minutes)" />
+    <button
+      :disabled="!validUserPreset"
+      @click="emit('user-input-preset', focusTimeInput, breakTimeInput)"
+    >
+      Set User Input Preset
+    </button>
     </div>
 </div>
 </template>

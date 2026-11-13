@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'; // Classic vue stuff too
 import { defaultTime } from '../../types/timer.ts';
 import { computed } from 'vue';
 
@@ -68,6 +67,7 @@ const progress = computed(() =>
   background-color: rgb(62, 67, 96);
   border-radius: 10px;
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 1);
+  width: 480px;
 }
 
 

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useTimer } from '../../composables/userTimer.ts';
 
+defineProps<{
+  presetWindow: boolean;
+}>();
 
 const {
     timeLeft,
@@ -17,8 +20,8 @@ const emit = defineEmits<{
 </script>
 
 <template>
- <h2>Preset component</h2>
 <div class="preset-container">
+  <h2>Preset component</h2>
  <div class="short-preset">
   <h3>Short Preset</h3>
   <p>25 minutes focus, 5 minutes break</p>
@@ -42,5 +45,18 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
-
+.preset-container {
+  position: absolute;
+  right: 0;
+  top: 30%;
+  width: 250px;
+  height: 80%;
+  background: rgb(62, 67, 96, 0.8); /* I'll change it later */
+  padding: 20px;
+  z-index: 10;
+  overflow: scroll;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  text-align: center;
+}
 </style>

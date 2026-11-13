@@ -25,16 +25,20 @@ const emit = defineEmits <{
 </template>
 
 <style scoped>
-.controls {
+.controls { /* Buttons area */
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   background-color: rgb(62, 67, 96);
   border-radius: 10px;
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 1);
+  width: 90px;
+  height: 329px;
+  
 }
 
-.control {
+.control { /* Button */
   margin: 10px;
   padding: 10px;
   font-size: 16px;
@@ -44,6 +48,7 @@ const emit = defineEmits <{
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
   border: none;
+  width: 70px;
 }
 
 .control:hover {

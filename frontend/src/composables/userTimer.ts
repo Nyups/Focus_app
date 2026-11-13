@@ -1,6 +1,5 @@
 // I have to remember it work despite this file being a TS file.
 import { ref } from 'vue';
-// Function from timer.ts
 import { defaultTime, doubleTime, breakTime } from '../types/timer';
 
 export function useTimer() {
@@ -65,21 +64,17 @@ export function useTimer() {
     }
 
 // Preset area ///////////////////////////////////////////////////////
-// to do : 2 preset functions and one user input function
-// -one short (25 min focus 5 min break)
-// -the other long (50 min focus 10 min break)
-// -user input function (input focus time and break time)
 
 function shortPreset() {
     resetTimer();
-    timeLeft.value = 25 * 60; // 25 minutes in seconds
-    breakTime.value = 5 * 60; // 5 minutes in seconds
+    timeLeft.value = 25 * 60;
+    breakTime.value = 5 * 60;
 }
 
 function longPreset() {
     resetTimer();
-    timeLeft.value = 50 * 60; // 50 minutes in seconds
-    breakTime.value = 10 * 60; // 10 minutes in seconds
+    timeLeft.value = 50 * 60;
+    breakTime.value = 10 * 60;
 }
 
 function userInputPreset(focusTime: number, breakTimeInput: number) {
@@ -89,7 +84,7 @@ function userInputPreset(focusTime: number, breakTimeInput: number) {
 }
 
 
-    // Export area /////////////////////////////////////////////////////
+// Export area /////////////////////////////////////////////////////
     return {
         timeLeft,
         playStatus,

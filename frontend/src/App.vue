@@ -36,14 +36,16 @@ function togglePresetWindow() {
 <template>
   <div class="heading">
     <h1>Pomodoro Timer</h1>
-    <button @click="togglePresetWindow">Preset</button>
+    <button @click="togglePresetWindow" class="preset-btn">Preset</button>
   </div>
+
+<div class="timer-container">
 <Timer_display
 :time-left="timeLeft"
 :format-time="formatTime"
 :play-info="playInfo"
 />
-<!--why is it red :C-->
+
 <Timer_controls
 :time-left="timeLeft"
 @reset="resetTimer"
@@ -51,19 +53,55 @@ function togglePresetWindow() {
 @start="start"
 @pause="pause"
 />
+</div>
 
 <session_counter
 :session-count="sessionCount"/>
 
+<transition name="slide">
 <session_preset
+v-if="presetWindow"
+:preset-window="presetWindow"
 @short-preset="shortPreset"
 @long-preset="longPreset"
 @user-input-preset="userInputPreset"
 />
+</transition>
+
 <!--
 :time-left="timeLeft" :  Pass the variable "timeLeft" to the component
 @rest="resetTimer" : Pass the function "resetTimer" to the component
 -->
 </template>
 
-<style scoped></style>
+<style scoped>
+h1 {
+  text-align: center;
+}
+
+/* layout */
+.timer-container {
+    display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+
+/* animation */
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+</style>

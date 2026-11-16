@@ -2,7 +2,7 @@
 import {ref} from 'vue';
 
 export const defaultTime: number = 1200;
-export const breakTime = ref<number>(600); // 5 seconds break time
+export const breakTime = ref<number>(600);
 
 // double time function
 export function doubleTime(seconds: number) {

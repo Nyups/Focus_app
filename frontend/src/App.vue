@@ -1,8 +1,6 @@
 <script setup lang="ts">
-
 // Component imports
 import Timer_display from './components/Timer/Timer_display.vue';
-import Timer_controls from './components/Timer/Timer_controls.vue';
 import Session_counter from './components/Timer/Session_counter.vue';
 import session_preset from './components/Settings/session_preset.vue';
 import { ref } from 'vue';
@@ -18,13 +16,14 @@ const {
     currentDuration,
     playInfo,
     sessionCount,
-    addTime,
     resetTimer,
+    addTime,
     start,
     pause,
     shortPreset,
     longPreset,
-    userInputPreset
+    userInputPreset,
+    playStatus
 } = useTimer();
 
 const presetWindow = ref(false);
@@ -40,14 +39,21 @@ function togglePresetWindow() {
     <button @click="togglePresetWindow" class="preset-btn">Preset</button>
   </div>
 
-<div class="timer-container">
+
 <Timer_display
+class="timer-display"
+:play-status="playStatus"
 :time-left="timeLeft"
 :duration="currentDuration"
 :format-time="formatTime"
 :play-info="playInfo"
+@reset="resetTimer"
+@addTime="addTime"
+@start="start"
+@pause="pause"
 />
 
+<!--
 <Timer_controls
 :time-left="timeLeft"
 @reset="resetTimer"
@@ -55,11 +61,11 @@ function togglePresetWindow() {
 @start="start"
 @pause="pause"
 />
-</div>
+-->
 
 <session_counter
 :session-count="sessionCount"/>
-<img src="./asset/texture/scuba.gif" alt="elgato"/>
+
 
 <transition name="slide">
 <session_preset
@@ -74,17 +80,13 @@ v-if="presetWindow"
 </template>
 
 <style scoped>
-h1 {
+.heading {
   text-align: center;
 }
 
-/* layout */
-.timer-container {
-    display: flex;
-  flex-direction: row;
-  gap: 20px;
+.timer-display {
+  margin: 20px auto;
 }
-
 
 /* animation */
 .slide-enter-from,

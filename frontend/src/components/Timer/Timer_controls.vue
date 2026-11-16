@@ -26,14 +26,13 @@ const emit = defineEmits <{
 <style scoped>
 .controls { /* Buttons area */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  gap: 20px;
-  background-color: rgb(62, 67, 96);
+  background-color: rgb(247, 249, 244, 0.6);
   border-radius: 10px;
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 1);
-  width: 90px;
-  height: 329px;
+  width: 90%;
+
 
 }
 
@@ -42,15 +41,15 @@ const emit = defineEmits <{
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
-  background-color: rgb(44, 48, 68);
+  background-color: rgb(247, 249, 244, 0.6);
   border-radius: 10px;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+  color: black;
+  box-shadow: 0 4px 6px rgb(3, 3, 3);
   border: none;
   width: 70px;
 }
 
 .control:hover {
-  background-color: rgb(255, 213, 220);
+  background-color: white;
 }
 </style>

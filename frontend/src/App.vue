@@ -10,12 +10,12 @@ import { formatTime } from './types/timer.ts';
 // Composable imports
 import { useTimer } from './composables/userTimer.ts';
 
-// Grab the said variables and functions from the composable (userTimer.ts) (aaaaw)
 const {
     timeLeft,
     currentDuration,
     playInfo,
     sessionCount,
+    studyTime,
     resetTimer,
     addTime,
     start,
@@ -27,18 +27,24 @@ const {
 } = useTimer();
 
 const presetWindow = ref(false);
+const statisticsWindow = ref(false);
 
 function togglePresetWindow() {
   presetWindow.value = !presetWindow.value;
 }
 
+function toggleStatisticsWindow() {
+  statisticsWindow.value = !statisticsWindow.value;
+}
+
 </script>
 <template>
-  <div class="heading">
-    <h1>Pomodoro Timer</h1>
-    <button @click="togglePresetWindow" class="preset-btn">Preset</button>
-  </div>
+    <h1 class="heading">Pomodoro Timer</h1>
 
+    <div class="settings">
+      <button @click="togglePresetWindow" class="preset-btn">Preset</button>
+      <button @click="toggleStatisticsWindow" class="statistics-btn">Statistics</button>
+    </div>
 
 <Timer_display
 class="timer-display"
@@ -53,19 +59,12 @@ class="timer-display"
 @pause="pause"
 />
 
-<!--
-<Timer_controls
-:time-left="timeLeft"
-@reset="resetTimer"
-@addTime="addTime"
-@start="start"
-@pause="pause"
-/>
--->
-
 <session_counter
-:session-count="sessionCount"/>
-
+v-if="statisticsWindow"
+class="statistics"
+:session-count="sessionCount"
+:study-time="studyTime"
+/>
 
 <transition name="slide">
 <session_preset

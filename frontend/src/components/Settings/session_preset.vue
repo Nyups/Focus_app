@@ -41,13 +41,16 @@ const emit = defineEmits<{
   <div class="user-input-preset">
     <h3>User Input Preset</h3>
     <p>Set your own focus and break times</p>
-    <input type="number" min="1" v-model.number="focusTimeInput" placeholder="Focus Time (minutes)" />
-    <input type="number" min="1" v-model.number="breakTimeInput" placeholder="Break Time (minutes)" />
+    <label for="focus-time">Focus Time (minutes):</label>
+    <input type="number" min="1" v-model.number="focusTimeInput" />
+    <br/>
+    <label for="break-time">Break Time (minutes):</label>
+    <input type="number" min="1" v-model.number="breakTimeInput" />
     <button
       :disabled="!validUserPreset"
       @click="emit('user-input-preset', focusTimeInput, breakTimeInput)"
     >
-      Set User Input Preset
+      Set session
     </button>
     </div>
 </div>
@@ -57,7 +60,7 @@ const emit = defineEmits<{
 .preset-container {
   position: absolute;
   right: 0;
-  top: 30%;
+  top: 10%;
   width: 250px;
   height: 80%;
   background: rgb(62, 67, 96, 0.8); /* I'll change it later */

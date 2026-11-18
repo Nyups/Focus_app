@@ -12,6 +12,7 @@ export function useTimer() {
     const breakStatus = ref(false);
     const playInfo = ref<string>('Waiting for you!');
     const sessionCount = ref<number>(0);
+    const studyTime = ref<number>(0);
 
     // Interval management
     let timerInterval: ReturnType<typeof setInterval> | null = null;
@@ -41,6 +42,7 @@ export function useTimer() {
         timerInterval = setInterval(() => {
             if (timeLeft.value > 0) {
                 timeLeft.value--;
+                studyTime.value++;
             } else {
                 pause();
                 sessionCount.value++;
@@ -104,6 +106,7 @@ function userInputPreset(focusTime: number, breakTimeInput: number) {
         playStatus,
         playInfo,
         sessionCount,
+        studyTime,
         addTime,
         resetTimer,
         start,

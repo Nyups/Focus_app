@@ -15,7 +15,7 @@ defineProps<{
   <div class="Statistics">
     <h1>Statistics</h1>
     <h2>Sessions completed: {{ sessionCount }}</h2>
-    <h2>Total study time: {{ formatTime(studyTime) }}</h2>
+    <h2>Total studied time: {{ formatTime(studyTime) }}</h2>
   </div>
 </template>
 

@@ -1,7 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-<h2>Progress ring component</h2>
+<h1>NOTES</h1>
+<p></p>
 </template>
 
 <style scoped></style>

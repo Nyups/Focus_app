@@ -96,11 +96,10 @@ const progress = computed(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  background-color: rgb(247, 249, 244, 0.6);
+  background-color: rgb(247, 249, 244);
   border-radius: 10px;
-  box-shadow: 0 6px 6px rgba(247, 249, 244, 1);
-  width: 80%;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 1);
+  width: 30%;
   height: auto;
   color: white;
 }

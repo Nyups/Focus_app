@@ -4,6 +4,7 @@ import Timer_display from '../components/Timer/Timer_display.vue';
 import Session_counter from '../components/Timer/Session_counter.vue';
 import session_preset from '../components/Settings/session_preset.vue';
 import task_view from './tasks/task_view.vue';
+import notes_view from './notes/notes_view.vue';
 
 import { ref } from 'vue';
 // Utility imports
@@ -39,6 +40,9 @@ const statisticsWindow = ref(false);
 </script>
 <template>
 
+<div class="dashboard">
+  <div class="top-row">
+    <div class="timer-column">
 <Timer_display
 class="timer-display"
 :play-status="playStatus"
@@ -52,12 +56,13 @@ class="timer-display"
 @pause="pause"
 />
 
-<session_counter
-v-if="statisticsWindow"
-class="statistics"
-:session-count="sessionCount"
-:study-time="studyTime"
-/>
+      <session_counter
+        v-if="statisticsWindow"
+        class="statistics"
+        :session-count="sessionCount"
+        :study-time="studyTime"
+      />
+    </div>
 
 <session_preset
 :preset-window="presetWindow"
@@ -66,20 +71,44 @@ class="statistics"
 @user-input-preset="userInputPreset"
 />
 
-<task_view/>
+<task_view />
+  </div>
 
+  <notes_view />
+</div>
 
 
 </template>
 
 <style scoped>
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.top-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 20px;
+  margin: 20px;
+}
+
+.top-row :deep(.timer-display),
+.top-row :deep(.preset-container),
+.top-row :deep(.render) {
+  width: 100%;
+  margin: 0;
+}
+
 
 .heading {
   text-align: center;
 }
 
 .timer-display {
-  margin: 20px 20px;
+  height: 100%;
 }
 
 .settings {

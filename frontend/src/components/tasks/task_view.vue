@@ -21,7 +21,7 @@
   margin: 20px 20px;
   box-shadow: 0 6px 6px rgba(0, 0, 0, 1);
   border-radius: 10px;
-  width: 40%;
+  width: 100%;
 }
 
 .heading {

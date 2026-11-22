@@ -115,7 +115,7 @@ const statisticsWindow = ref(false);
 .notes-cell {
   grid-area: notes;
   min-width: 0;
-  margin: 20px;
+  margin: 20px 60px 20px 20px;
 }
 
 .dashboard :deep(.timer-display),

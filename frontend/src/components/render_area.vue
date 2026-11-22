@@ -39,22 +39,20 @@ const statisticsWindow = ref(false);
 
 </script>
 <template>
-
-<div class="dashboard">
-  <div class="top-row">
-    <div class="timer-column">
-<Timer_display
-class="timer-display"
-:play-status="playStatus"
-:time-left="timeLeft"
-:duration="currentDuration"
-:format-time="formatTime"
-:play-info="playInfo"
-@reset="resetTimer"
-@addTime="addTime"
-@start="start"
-@pause="pause"
-/>
+  <div class="dashboard">
+    <div class="timer-cell">
+      <Timer_display
+        class="timer-display"
+        :play-status="playStatus"
+        :time-left="timeLeft"
+        :duration="currentDuration"
+        :format-time="formatTime"
+        :play-info="playInfo"
+        @reset="resetTimer"
+        @addTime="addTime"
+        @start="start"
+        @pause="pause"
+      />
 
       <session_counter
         v-if="statisticsWindow"
@@ -64,44 +62,73 @@ class="timer-display"
       />
     </div>
 
-<session_preset
-:preset-window="presetWindow"
-@short-preset="shortPreset"
-@long-preset="longPreset"
-@user-input-preset="userInputPreset"
-/>
+    <div class="preset-cell">
+      <session_preset
+        :preset-window="presetWindow"
+        @short-preset="shortPreset"
+        @long-preset="longPreset"
+        @user-input-preset="userInputPreset"
+      />
+    </div>
 
-<task_view />
+    <div class="task-cell">
+      <task_view />
+    </div>
+
+    <div class="notes-cell">
+      <notes_view />
+    </div>
   </div>
-
-  <notes_view />
-</div>
-
-
 </template>
 
 <style scoped>
 .dashboard {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas:
+    "timer preset task"
+    "notes notes task";
   width: 100%;
 }
 
-.top-row {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: stretch;
-  gap: 20px;
+.timer-cell {
+  grid-area: timer;
+  min-width: 0;
+  margin: 20px 20px;
+  max-height: 625px;
+  min-height: auto;
+  min-width: 400px;
+}
+
+.preset-cell {
+  grid-area: preset;
+  min-width: 0;
+  margin: 20px 20px 20px 0px;
+}
+
+.task-cell {
+  grid-area: task;
+  min-width: 0;
+  margin: 0px 20px 40px 0px;
+}
+
+.notes-cell {
+  grid-area: notes;
+  min-width: 0;
   margin: 20px;
 }
 
-.top-row :deep(.timer-display),
-.top-row :deep(.preset-container),
-.top-row :deep(.render) {
+.dashboard :deep(.timer-display),
+.dashboard :deep(.preset-container),
+.dashboard :deep(.render),
+.dashboard :deep(.notes) {
   width: 100%;
   margin: 0;
 }
 
+.dashboard :deep(.render) {
+  height: 100%;
+}
 
 .heading {
   text-align: center;
@@ -116,7 +143,6 @@ class="timer-display"
   background-color: white;
   width: 80%;
   justify-content: center;
-  margin: 20px auto;
 }
 
 /* animation */

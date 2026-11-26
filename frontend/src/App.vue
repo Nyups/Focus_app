@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import render_area from './components/render_area.vue';
+import test_view from './test_area/test_view.vue';
 </script>
 
 <template>
@@ -7,6 +8,7 @@ import render_area from './components/render_area.vue';
   <section class="render">
 <render_area/>
 </section>
+<test_view/>
 </template>
 
 <style scoped>
